@@ -9,8 +9,8 @@ class Main {
 			for(int spc=1;spc<=(N-row);spc++){
 				System.out.print(" ");
 			}
-			for(int str=1;str<=((2*row)-1);str++){
-				System.out.print("*");
+			for(int str=1;str<=row;str++){
+				System.out.print("* ");
 			}
 			System.out.println();
 		}
