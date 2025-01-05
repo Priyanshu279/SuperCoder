@@ -1,42 +1,47 @@
-public class Solution {
-    public int solve(int[] A) {
-        int min = Integer.MAX_VALUE;
-        int max = Integer.MIN_VALUE;
-        for(int i=0;i<A.length;i++){
-            if(min>A[i]){
-                min=A[i];
-            }
-            if(max<A[i]){
-                max = A[i];
-            }
+import java.util.*;
+
+class Main {
+    public static int smallestSubarrayLengthWithMinAndMax(int[] A) {
+        int N = A.length;
+        int minElement = Integer.MAX_VALUE;
+        int maxElement = Integer.MIN_VALUE;
+		
+        for (int i = 0; i < N; i++) {
+            minElement = Math.min(minElement, A[i]);
+            maxElement = Math.max(maxElement, A[i]);
         }
-        if(max == min)
-        {
-            return 1;
-        }
-        int mini = -1;
-        int maxi = -1;
-        int anslen = A.length;
-        for(int i = A.length -1; i>0;i--)
-        {
-            if(A[i] == min)
-            {
-                mini = i;
-                if(maxi!= -1)
-                {
-                    anslen = Math.min(anslen,maxi-mini+1);
+
+        int minLength = Integer.MAX_VALUE;
+
+        for (int i = 0; i < N; i++) {
+            for (int j = i; j < N; j++) {
+
+                boolean hasMin = false;
+                boolean hasMax = false;
+
+                for (int k = i; k <= j; k++) {
+                    if (A[k] == minElement) hasMin = true;
+                    if (A[k] == maxElement) hasMax = true;
                 }
-            }
-            else if(A[i] == max)
-            {
-                maxi = i;
-                if(mini != -1)
-                {
-                    anslen = Math.min(anslen, mini-maxi+1);
+
+                if (hasMin && hasMax) {
+                    minLength = Math.min(minLength, j - i + 1);
                 }
             }
         }
-        return anslen;
+        return minLength;
     }
-    
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+		
+        int N = sc.nextInt();
+        int[] A = new int[N];
+        for (int i = 0; i < N; i++) {
+            A[i] = sc.nextInt();
+        }
+
+        int result = smallestSubarrayLengthWithMinAndMax(A);
+        System.out.println(result);
+    }
 }
