@@ -3,33 +3,34 @@ import java.util.*;
 class Main {
     public static int smallestSubarrayLengthWithMinAndMax(int[] A) {
         int N = A.length;
-        int minElement = Integer.MAX_VALUE;
-        int maxElement = Integer.MIN_VALUE;
+        int minVal = Integer.MAX_VALUE;
+        int maxVal = Integer.MIN_VALUE;
+
+        int minIndex=-1;
+        int maxIndex=-1;
 		
         for (int i = 0; i < N; i++) {
-            minElement = Math.min(minElement, A[i]);
-            maxElement = Math.max(maxElement, A[i]);
+            minVal = Math.min(minVal, A[i]);
+            maxVal = Math.max(maxVal, A[i]);
         }
 
-        int minLength = Integer.MAX_VALUE;
+        int ansLength = Integer.MAX_VALUE;
 
-        for (int i = 0; i < N; i++) {
-            for (int j = i; j < N; j++) {
-
-                boolean hasMin = false;
-                boolean hasMax = false;
-
-                for (int k = i; k <= j; k++) {
-                    if (A[k] == minElement) hasMin = true;
-                    if (A[k] == maxElement) hasMax = true;
+        for(int i=N-1;i>=0;i--){
+            if(A[i]==minVal){
+                minIndex=i;
+                if(maxIndex!=-1){
+                    ansLength=Math.min(ansLength,maxIndex-minIndex+1);
                 }
-
-                if (hasMin && hasMax) {
-                    minLength = Math.min(minLength, j - i + 1);
+            }
+            else if(A[i]==maxVal){
+                maxIndex=i;
+                if(minIndex!=-1){
+                    ansLength=Math.min(ansLength,minIndex-maxIndex+1);
                 }
             }
         }
-        return minLength;
+        return ansLength;
     }
 
     public static void main(String[] args) {
