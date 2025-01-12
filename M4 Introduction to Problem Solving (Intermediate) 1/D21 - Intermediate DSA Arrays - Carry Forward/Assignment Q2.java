@@ -1,24 +1,25 @@
 import java.util.*;
 
 class Main {
-    public static int countPairs(String A) {
-		long sfxCount = 0l;
-        long count = 0l;
-        for (int i = A.length() - 1; i >= 0; i--) {
-            if (A.charAt(i) == 'A') {
-                count = count + sfxCount;
-            } else if (A.charAt(i) == 'G') {
-                sfxCount++;
+    public static long subsequence(String A){
+        int N=A.length();
+        long cnt=0l;
+        long sfxCnt=0l;
+        for(int i=N-1;i>=0;i--){
+            if(A.charAt(i)=='G'){
+                sfxCnt++;
+            }else if(A.charAt(i)=='A'){
+                cnt=cnt+sfxCnt;
             }
         }
-        return (int)(count%1000000007);
+        return cnt;
     }
-
+    
 	public static void main(String args[]) {
 		// Your code goes here
-		Scanner sc=new Scanner(System.in);
-		String s=sc.next();
-		int ans=countPairs(s);
-		System.out.println(ans);
+        Scanner sc=new Scanner(System.in);
+        String A=sc.next();
+        long ans = subsequence(A);
+        System.out.println(ans);
 	}
 }
