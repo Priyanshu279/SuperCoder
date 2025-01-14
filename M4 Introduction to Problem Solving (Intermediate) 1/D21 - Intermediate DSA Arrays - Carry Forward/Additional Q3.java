@@ -1,38 +1,22 @@
 import java.util.*;
 
-public class Main{
-
-    public int countAmazingSubstrings(String S){
-        int n = S.length();
-        int mod = 10003;
-        int count = 0;
-
-        for (int i=0;i<n;i++){
+class Main {
+    public static int amazingSubarrays(String S){
+        int cnt=0;
+        int n=S.length();
+        for(int i=0;i<n;i++){
             char c=S.charAt(i);
-
-            if(isVowel(c)){
-                count=count+(n-i);
-                count=count%mod; 
+            if(c=='a'||c=='e'||c=='i'||c=='o'||c=='u'||c=='A'||c=='E'||c=='I'||c=='O'||c=='U'){
+                cnt=cnt+(n-i);
             }
-        }
-
-        return count;
+        } 
+        return cnt;
     }
     
-    private boolean isVowel(char c) {
-        return "aeiouAEIOU".indexOf(c) != -1;
-    }
-
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        
-        System.out.println("Enter the string:");
-        String S = scanner.nextLine();
-
-        AmazingSubstrings solver = new AmazingSubstrings();
-
-        int result = solver.countAmazingSubstrings(S);
-        System.out.println("Number of amazing substrings: " + result);
-        
-    }
+	public static void main(String args[]){
+        Scanner sc=new Scanner(System.in);
+        String S=sc.next();
+        int ans=amazingSubarrays(S);
+        System.out.println(ans);    
+	}
 }
